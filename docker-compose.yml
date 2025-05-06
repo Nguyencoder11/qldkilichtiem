@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: vaxms-be
+    image: vaxms-be-1
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/vaxms
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+  frontend:
+    build: 
+      context: ./client-fe
+      dockerfile: Dockerfile
+    container_name: vaxms-fe
+    image: vaxms-fe-1
+    restart: always
+    ports:
+      - 3000:80
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
