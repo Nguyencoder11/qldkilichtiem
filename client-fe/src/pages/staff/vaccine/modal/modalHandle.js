@@ -153,9 +153,9 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                     borderRadius: '8px'
                 }}
             >
-                <Form 
-                    name="validateOnly" 
-                    layout="vertical" 
+                <Form
+                    name="validateOnly"
+                    layout="vertical"
                     autoComplete="off"
                     style={{
                         maxWidth: '500px',
@@ -206,7 +206,7 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                             min={1}
                         />
                     </Form.Item>
-                   
+
                     <Form.Item
                         label="Loại vaccine"
                         validateStatus={formErrors["vaccineTypeId"] ? "error" : ""}
@@ -294,7 +294,7 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                             ))}
                         </Select>
                     </Form.Item>
-    
+
                     <Form.Item
                         label="Thông tin Vaccine"
                         validateStatus={formErrors["description"] ? "error" : ""}
@@ -316,11 +316,11 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                             }}
                         />
                     </Form.Item>
-                    
-                    <div style={{ 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        marginBottom: '20px' 
+
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginBottom: '20px'
                     }}>
                         <Upload
                             beforeUpload={(file) => {
@@ -343,8 +343,8 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                                     }}
                                 />
                             ) : (
-                                <Button 
-                                    icon={<UploadOutlined />} 
+                                <Button
+                                    icon={<UploadOutlined />}
                                     style={{
                                         height: '40px',
                                         borderRadius: '6px'
@@ -355,13 +355,13 @@ function ModalHandle({ modalHandle, setModalHandle, setVaccines }) {
                             )}
                         </Upload>
                     </div>
-                    <div style={{ 
-                        display: "flex", 
-                        justifyContent: 'flex-end', 
-                        marginTop: 20 
+                    <div style={{
+                        display: "flex",
+                        justifyContent: 'flex-end',
+                        marginTop: 20
                     }}>
                         <Button
-                            style={{ 
+                            style={{
                                 marginRight: 10,
                                 borderRadius: '6px'
                             }}

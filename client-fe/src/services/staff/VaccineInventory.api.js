@@ -28,7 +28,7 @@ export class VaccineInventoryApi {
       method: "POST",
       url: `/api/vaccine-inventory/import`,
       headers: {
-        'Content-Type': 'multipart/form-data', 
+        'Content-Type': 'multipart/form-data',
       },
       data: data,
     });

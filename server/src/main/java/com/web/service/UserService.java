@@ -61,8 +61,8 @@ public class UserService {
         // check infor user
         System.out.println(email);
         checkUser(users);
-        if(passwordEncoder.matches(password, users.get().getPassword())){
-//        if (password.equalsIgnoreCase(users.get().getPassword())) {
+        if (passwordEncoder.matches(password, users.get().getPassword())) {
+            // if (password.equalsIgnoreCase(users.get().getPassword())) {
             CustomUserDetails customUserDetails = new CustomUserDetails(users.get());
             String token = jwtTokenProvider.generateToken(customUserDetails);
             TokenDto tokenDto = new TokenDto();
@@ -74,12 +74,11 @@ public class UserService {
         }
     }
 
-
     public TokenDto loginWithGoogle(GoogleIdToken.Payload payload) throws Exception {
         User user = new User();
         user.setEmail(payload.getEmail());
-//        user.setAvatar(payload.get("picture").toString());
-//        user.setFullName(payload.get("name").toString());
+        // user.setAvatar(payload.get("picture").toString());
+        // user.setFullName(payload.get("name").toString());
         user.setActived(true);
         user.setAuthorities(authorityRepository.findByName(Contains.ROLE_CUSTOMER));
         user.setCreatedDate(new Date(System.currentTimeMillis()));
@@ -97,7 +96,7 @@ public class UserService {
             tokenDto.setToken(token);
             tokenDto.setUser(users.get());
             CustomerProfile ex = customerProfileRepository.findByUser(users.get().getId());
-            if(ex == null){
+            if (ex == null) {
                 CustomerProfile customerProfile = new CustomerProfile();
                 customerProfile.setUser(users.get());
                 customerProfileRepository.save(customerProfile);
@@ -138,23 +137,28 @@ public class UserService {
                 });
         User user = new User();
         user.setUserType(UserType.standard);
-//        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        // user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         user.setPassword(userRequest.getPassword());
         user.setAuthorities(authorityRepository.findByName(Contains.ROLE_CUSTOMER));
         user.setActived(false);
         user.setEmail(userRequest.getEmail());
-//        user.setFullName(userRequest.getFullName());
+        // user.setFullName(userRequest.getFullName());
         user.setCreatedDate(new Date(System.currentTimeMillis()));
         user.setActivationKey(userUtils.randomKey());
         User result = userRepository.save(user);
-        mailService.sendEmail(user.getEmail(), "Xác nhận tài khoản của bạn", "Cảm ơn bạn đã tin tưởng và xử dụng dịch vụ của chúng tôi:<br>" +
-                "Để kích hoạt tài khoản của bạn, hãy nhập mã xác nhận bên dưới để xác thực tài khoản của bạn<br><br>" +
-                "<a style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">" + user.getActivationKey() + "</a>", false, true);
+        mailService.sendEmail(user.getEmail(), "Xác nhận tài khoản của bạn",
+                "Cảm ơn bạn đã tin tưởng và xử dụng dịch vụ của chúng tôi:<br>" +
+                        "Để kích hoạt tài khoản của bạn, hãy nhập mã xác nhận bên dưới để xác thực tài khoản của bạn<br><br>"
+                        +
+                        "<a style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">"
+                        + user.getActivationKey() + "</a>",
+                false, true);
         CustomerProfile customerProfile = new CustomerProfile();
         customerProfile.setUser(result);
         customerProfileRepository.save(customerProfile);
         return result;
     }
+
     public User registerUser(UserRequest userRequest) {
         // Kiểm tra email đã tồn tại chưa
         userRepository.findByEmail(userRequest.getEmail())
@@ -181,9 +185,12 @@ public class UserService {
         // Gửi email kích hoạt tài khoản
         mailService.sendEmail(user.getEmail(), "Xác nhận tài khoản của bạn",
                 "Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi:<br>" +
-                        "Để kích hoạt tài khoản của bạn, hãy nhập mã xác nhận bên dưới để xác thực tài khoản của bạn<br><br>" +
-                        "<a style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">" +
-                        user.getActivationKey() + "</a>", false, true);
+                        "Để kích hoạt tài khoản của bạn, hãy nhập mã xác nhận bên dưới để xác thực tài khoản của bạn<br><br>"
+                        +
+                        "<a style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">"
+                        +
+                        user.getActivationKey() + "</a>",
+                false, true);
 
         return result;
     }
@@ -211,7 +218,8 @@ public class UserService {
         user.setActived(true);
         user.setActivationKey(null);
         userRepository.save(user);
-        logger.info("Trạng thái tài khoản sau khi lưu: Actived = " + user.getActived() + ", Activation Key = " + user.getActivationKey());
+        logger.info("Trạng thái tài khoản sau khi lưu: Actived = " + user.getActived() + ", Activation Key = "
+                + user.getActivationKey());
         logger.info("User đã được kích hoạt thành công: " + email);
     }
 
@@ -234,10 +242,13 @@ public class UserService {
         user.get().setRememberKey(random);
         userRepository.save(user.get());
 
-        mailService.sendEmail(email, "Đặt lại mật khẩu", "Cảm ơn bạn đã tin tưởng và xử dụng dịch vụ của chúng tôi:<br>" +
+        mailService.sendEmail(email, "Đặt lại mật khẩu", "Cảm ơn bạn đã tin tưởng và xử dụng dịch vụ của chúng tôi:<br>"
+                +
                 "Chúng tôi đã tạo một mật khẩu mới từ yêu cầu của bạn<br>" +
                 "Hãy lick vào bên dưới để đặt lại mật khẩu mới của bạn<br><br>" +
-                "<a href='" + url + "?email=" + email + "&key=" + random + "' style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">Đặt lại mật khẩu</a>", false, true);
+                "<a href='" + url + "?email=" + email + "&key=" + random
+                + "' style=\"background-color: #2f5fad; padding: 10px; color: #fff; font-size: 18px; font-weight: bold;\">Đặt lại mật khẩu</a>",
+                false, true);
 
     }
 
@@ -254,9 +265,9 @@ public class UserService {
 
     public void updateInfor(UserUpdate userUpdate) {
         User user = userUtils.getUserWithAuthority();
-//        user.setFullName(userUpdate.getFullName());
-//        user.setAvatar(userUpdate.getAvatar());
-//        user.setAddress(userUpdate.getAddress());
+        // user.setFullName(userUpdate.getFullName());
+        // user.setAvatar(userUpdate.getAvatar());
+        // user.setAddress(userUpdate.getAddress());
         userRepository.save(user);
     }
 
@@ -265,12 +276,11 @@ public class UserService {
         if (user.getUserType().equals(UserType.google)) {
             throw new MessageException("Xin lỗi, chức năng này không hỗ trợ đăng nhập bằng google");
         }
-//        if (passwordEncoder.matches(oldPass, user.getPassword())) {
-        if (oldPass.equals(user.getPassword())) {
-            user.setPassword(newPass);
+        if (passwordEncoder.matches(oldPass, user.getPassword())) {
+            // if (oldPass.equals(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPass));
             userRepository.save(user);
-        }
-        else {
+        } else {
             throw new MessageException("Mật khẩu cũ không chính xác", 500);
         }
     }

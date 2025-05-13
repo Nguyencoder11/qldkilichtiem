@@ -151,7 +151,7 @@ function Login() {
           </GoogleOAuthProvider>
           <p className="register-footer">
             Bằng cách nhấp vào Đăng nhập với Google, bạn đồng ý với{' '}
-            <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách quyền riêng tư</a> của chúng tôi.
+            <a href="/terms-of-use">Điều khoản sử dụng</a> và <a href="/privacy-policy">Chính sách quyền riêng tư</a> của chúng tôi.
           </p>
 
         </div>

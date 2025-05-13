@@ -32,13 +32,13 @@ function Header({ children }) {
             <i className="fa fa-medkit"></i> Quản lý vaccine
           </a>
           <a href="vaccine-inventory">
-            <i className="fa fa-hospital-o"></i> Kho vaccine
+            <i className="fa-solid fa-house-medical"></i> Kho vaccine
           </a>
           <a href="customer-schedule-1">
-            <i className="fa fa-calendar"></i> Lịch tiêm và Khách hàng
+            <i className="fa-solid fa-calendar-week"></i> Lịch tiêm và Khách hàng
           </a>
           <a href="lich-tiem-chung">
-            <i className="fa fa-calendar"></i> Lịch tiêm chủng
+            <i className="fa-solid fa-calendar-days"></i> Lịch tiêm chủng
           </a>
           <a href="#" onClick={() => logout()}>
             <i className="fa fa-sign-out"></i> Đăng xuất

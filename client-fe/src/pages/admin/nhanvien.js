@@ -123,7 +123,7 @@ const EmployeeSchedule = () => {
 
     const getInitials = (fullname) => {
         if (!fullname) return 'NA'; // Trả về 'NA' (Not Available) nếu fullname không tồn tại
-    return fullname
+        return fullname
             .split(' ')
             .map(word => word[0])
             .join('')
@@ -133,125 +133,125 @@ const EmployeeSchedule = () => {
 
     return (
         <div className="employee-schedule-container">
-    <ToastContainer />
+            <ToastContainer />
 
-    {/* Header */}
-    <div className="employee-header">
-        <h1 className="title">Quản Lý Nhân Viên</h1>
-        <button 
-            className="add-schedule-btn" 
-            onClick={() => handleOpenModal(null)}
-        >
-            <i className="fa fa-plus"></i> Thêm Lịch Làm Việc
-        </button>
-    </div>
-
-    {/* Grid of Employee Cards */}
-    <div className="employee-grid">
-        {employees.map((employee) => (
-            <div key={employee.id} className="employee-card">
-                <div className="employee-info">
-                    <div className="avatar">{getInitials(employee.fullname)}</div>
-                    <div className="name">{employee.fullname}</div>
-                    <div className="email">{employee.email}</div>
-                    <button 
-                        className="schedule-btn"
-                        onClick={() => handleOpenModal(employee)}
-                    >
-                        Đặt Lịch
-                    </button>
-                </div>
+            {/* Header */}
+            <div className="employee-header">
+                <h1 className="title">Quản Lý Nhân Viên</h1>
+                <button
+                    className="add-schedule-btn"
+                    onClick={() => handleOpenModal(null)}
+                >
+                    <i className="fa fa-plus"></i> Thêm Lịch Làm Việc
+                </button>
             </div>
-        ))}
-    </div>
 
-    {/* New Table: Display Work Schedules */}
-    <div className="work-schedules-table">
-        <h2 className="table-title">Lịch Làm Việc Đã Đặt</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nhân Viên</th>
-                    <th>Email</th>
-                    <th>Ngày Làm Việc</th>
-                    <th>Giờ Làm Việc</th>
-                </tr>
-            </thead>
-            <tbody>
-                {schedules.length > 0 ? (
-                    schedules.map((schedule, index) => (
-                        <tr key={index}>
-                            <td>{selectedEmployee?.fullname || 'NA'}</td>
-                            <td>{selectedEmployee?.email || 'NA'}</td>
-                            <td>{schedule.workingDate}</td>
-                            <td>{schedule.workingTime}</td>
-                        </tr>
-                    ))
-                ) : (
-                    <tr>
-                        <td colSpan="4" style={{ textAlign: 'center' }}>
-                            Chưa có lịch làm việc nào.
-                        </td>
-                    </tr>
-                )}
-            </tbody>
-        </table>
-    </div>
-
-    {/* Modal */}
-    {isModalOpen && (
-        <div className={`schedule-modal ${isModalOpen ? 'show' : ''}`}>
-            <div className="modal-content">
-                <div className="modal-header">
-                    <div className="title">
-                        {selectedEmployee ? `Lịch Làm Việc: ${selectedEmployee.fullname}` : 'Thêm Lịch Làm Việc'}
-                    </div>
-                    <button className="close-btn" onClick={handleCloseModal}>
-                        &times;
-                    </button>
-                </div>
-
-                <form className="schedule-form" onSubmit={handleScheduleWork}>
-                    <div className="form-group">
-                        <label>Ngày Làm Việc</label>
-                        <input 
-                            type="date" 
-                            value={workingDate}
-                            onChange={(e) => setWorkingDate(e.target.value)}
-                            required 
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Giờ Làm Việc</label>
-                        <input 
-                            type="time" 
-                            value={workingTime}
-                            onChange={(e) => setWorkingTime(e.target.value)}
-                            required 
-                        />
-                    </div>
-                    <button type="submit" className="submit-btn">
-                        Xác Nhận
-                    </button>
-                </form>
-
-                {schedules.length > 0 && (
-                    <div className="existing-schedules">
-                        <h4>Các Lịch Làm Việc Hiện Tại</h4>
-                        <div className="schedule-list">
-                            {schedules.map(schedule => (
-                                <div key={schedule.id} className="schedule-item">
-                                    <span>{schedule.workingDate}</span>
-                                    <span>{schedule.workingTime}</span>
-                                </div>
-                            ))}
+            {/* Grid of Employee Cards */}
+            <div className="employee-grid">
+                {employees.map((employee) => (
+                    <div key={employee.id} className="employee-card">
+                        <div className="employee-info">
+                            <div className="avatar">{getInitials(employee.fullname)}</div>
+                            <div className="name">{employee.fullname}</div>
+                            <div className="email">{employee.email}</div>
+                            <button
+                                className="schedule-btn"
+                                onClick={() => handleOpenModal(employee)}
+                            >
+                                Đặt Lịch
+                            </button>
                         </div>
                     </div>
-                )}
+                ))}
             </div>
+
+            {/* New Table: Display Work Schedules */}
+            <div className="work-schedules-table">
+                <h2 className="table-title">Lịch Làm Việc Đã Đặt</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nhân Viên</th>
+                            <th>Email</th>
+                            <th>Ngày Làm Việc</th>
+                            <th>Giờ Làm Việc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {schedules.length > 0 ? (
+                            schedules.map((schedule, index) => (
+                                <tr key={index}>
+                                    <td>{selectedEmployee?.fullname || 'NA'}</td>
+                                    <td>{selectedEmployee?.email || 'NA'}</td>
+                                    <td>{schedule.workingDate}</td>
+                                    <td>{schedule.workingTime}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="4" style={{ textAlign: 'center' }}>
+                                    Chưa có lịch làm việc nào.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className={`schedule-modal ${isModalOpen ? 'show' : ''}`}>
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <div className="title">
+                                {selectedEmployee ? `Lịch Làm Việc: ${selectedEmployee.fullname}` : 'Thêm Lịch Làm Việc'}
+                            </div>
+                            <button className="close-btn" onClick={handleCloseModal}>
+                                &times;
+                            </button>
+                        </div>
+
+                        <form className="schedule-form" onSubmit={handleScheduleWork}>
+                            <div className="form-group">
+                                <label>Ngày Làm Việc</label>
+                                <input
+                                    type="date"
+                                    value={workingDate}
+                                    onChange={(e) => setWorkingDate(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Giờ Làm Việc</label>
+                                <input
+                                    type="time"
+                                    value={workingTime}
+                                    onChange={(e) => setWorkingTime(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <button type="submit" className="submit-btn">
+                                Xác Nhận
+                            </button>
+                        </form>
+
+                        {schedules.length > 0 && (
+                            <div className="existing-schedules">
+                                <h4>Các Lịch Làm Việc Hiện Tại</h4>
+                                <div className="schedule-list">
+                                    {schedules.map(schedule => (
+                                        <div key={schedule.id} className="schedule-item">
+                                            <span>{schedule.workingDate}</span>
+                                            <span>{schedule.workingTime}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
-    )}
-</div>
 
     );
 };

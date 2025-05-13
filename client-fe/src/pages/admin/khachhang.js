@@ -64,7 +64,7 @@ const AdminKhachHang = () => {
     }
 
     const handleEditClick = (item) => {
-        setEditCustomer({...item});
+        setEditCustomer({ ...item });
         if (editModal) {
             editModal.show();
         }
@@ -72,7 +72,7 @@ const AdminKhachHang = () => {
 
     async function updateKhachHang() {
         if (!editCustomer) return;
-        
+
         const fileInput = document.getElementById('avatarUpload');
         if (fileInput.files.length > 0) {
             const avatarUrl = await uploadSingleFile(fileInput);
@@ -85,7 +85,7 @@ const AdminKhachHang = () => {
         if (response.status < 300) {
             toast.success("Cập nhật thành công!");
             getAllKhachHang(0);
-            
+
             if (editModal) {
                 editModal.hide();
                 document.body.classList.remove('modal-open');
@@ -199,7 +199,7 @@ const AdminKhachHang = () => {
                                     <p><strong>SĐT người liên hệ:</strong> {selectedCustomer.contactPhone}</p>
                                     <p><strong>Ngày tạo:</strong> {new Date(selectedCustomer.createdDate).toLocaleDateString('vi-VN')}</p>
                                     {selectedCustomer.avatar && (
-                                        <img src={selectedCustomer.avatar} style={{maxWidth: '200px', marginTop: '10px'}} alt="Avatar" />
+                                        <img src={selectedCustomer.avatar} style={{ maxWidth: '200px', marginTop: '10px' }} alt="Avatar" />
                                     )}
                                 </div>
                             )}
@@ -223,13 +223,13 @@ const AdminKhachHang = () => {
                                 <div>
                                     <div className="mb-3">
                                         <label className="form-label">Họ tên</label>
-                                        <input type="text" className="form-control" value={editCustomer.fullName} 
-                                            onChange={(e) => setEditCustomer({...editCustomer, fullName: e.target.value})} />
+                                        <input type="text" className="form-control" value={editCustomer.fullName}
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, fullName: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Giới tính</label>
                                         <select className="form-control" value={editCustomer.gender}
-                                            onChange={(e) => setEditCustomer({...editCustomer, gender: e.target.value})}>
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, gender: e.target.value })}>
                                             <option value="Male">Nam</option>
                                             <option value="Female">Nữ</option>
                                         </select>
@@ -237,28 +237,28 @@ const AdminKhachHang = () => {
                                     <div className="mb-3">
                                         <label className="form-label">Ngày sinh</label>
                                         <input type="date" className="form-control" value={editCustomer.birthdate}
-                                            onChange={(e) => setEditCustomer({...editCustomer, birthdate: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, birthdate: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Số điện thoại</label>
                                         <input type="text" className="form-control" value={editCustomer.phone}
-                                            onChange={(e) => setEditCustomer({...editCustomer, phone: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, phone: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Địa chỉ</label>
                                         <input type="text" className="form-control mb-2" placeholder="Đường" value={editCustomer.street}
-                                            onChange={(e) => setEditCustomer({...editCustomer, street: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, street: e.target.value })} />
                                         <input type="text" className="form-control mb-2" placeholder="Phường/Xã" value={editCustomer.ward}
-                                            onChange={(e) => setEditCustomer({...editCustomer, ward: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, ward: e.target.value })} />
                                         <input type="text" className="form-control mb-2" placeholder="Quận/Huyện" value={editCustomer.district}
-                                            onChange={(e) => setEditCustomer({...editCustomer, district: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, district: e.target.value })} />
                                         <input type="text" className="form-control" placeholder="Tỉnh/Thành phố" value={editCustomer.city}
-                                            onChange={(e) => setEditCustomer({...editCustomer, city: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, city: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Bảo hiểm y tế</label>
                                         <select className="form-control" value={editCustomer.insuranceStatus}
-                                            onChange={(e) => setEditCustomer({...editCustomer, insuranceStatus: e.target.value === 'true'})}>
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, insuranceStatus: e.target.value === 'true' })}>
                                             <option value="true">Có</option>
                                             <option value="false">Không</option>
                                         </select>
@@ -266,23 +266,23 @@ const AdminKhachHang = () => {
                                     <div className="mb-3">
                                         <label className="form-label">Người liên hệ</label>
                                         <input type="text" className="form-control" value={editCustomer.contactName}
-                                            onChange={(e) => setEditCustomer({...editCustomer, contactName: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, contactName: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Mối quan hệ</label>
                                         <input type="text" className="form-control" value={editCustomer.contactRelationship}
-                                            onChange={(e) => setEditCustomer({...editCustomer, contactRelationship: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, contactRelationship: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">SĐT người liên hệ</label>
                                         <input type="text" className="form-control" value={editCustomer.contactPhone}
-                                            onChange={(e) => setEditCustomer({...editCustomer, contactPhone: e.target.value})} />
+                                            onChange={(e) => setEditCustomer({ ...editCustomer, contactPhone: e.target.value })} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Ảnh đại diện</label>
                                         <input type="file" className="form-control" id="avatarUpload" accept="image/*" />
                                         {editCustomer.avatar && (
-                                            <img src={editCustomer.avatar} style={{maxWidth: '200px', marginTop: '10px'}} alt="Current Avatar" />
+                                            <img src={editCustomer.avatar} style={{ maxWidth: '200px', marginTop: '10px' }} alt="Current Avatar" />
                                         )}
                                     </div>
                                 </div>

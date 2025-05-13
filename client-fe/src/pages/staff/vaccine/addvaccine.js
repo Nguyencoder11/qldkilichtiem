@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
-import {getMethod, postMethod, postMethodPayload, uploadSingleFile} from '../../../services/request';
+import { getMethod, postMethod, postMethodPayload, uploadSingleFile } from '../../../services/request';
 import { formatMoney } from '../../../services/money';
 import Select from 'react-select';
 import { Editor } from '@tinymce/tinymce-react';
@@ -12,7 +12,7 @@ var token = localStorage.getItem("token");
 
 var linkbanner = '';
 var description = '';
-const StaffAddVaccine = ()=>{
+const StaffAddVaccine = () => {
     const [item, setItem] = useState(null);
     const [type, setType] = useState([]);
     const [manufacturer, setManufacturer] = useState([]);
@@ -24,11 +24,11 @@ const StaffAddVaccine = ()=>{
 
     const [textButton, setTextbutton] = useState("Thêm vaccine");
 
-    useEffect(()=>{
-        const getData= async() =>{
+    useEffect(() => {
+        const getData = async () => {
             var uls = new URL(document.URL)
             var id = uls.searchParams.get("id");
-            if(id != null){
+            if (id != null) {
                 setTextbutton("Cập nhật vaccine")
                 var response = await getMethod('/api/vaccine/public/find-by-id?id=' + id);
                 var result = await response.json();
@@ -41,8 +41,8 @@ const StaffAddVaccine = ()=>{
             }
         };
         getData();
-        
-        const getSelect= async() =>{
+
+        const getSelect = async () => {
             var response = await getMethod('/api/vaccine-type/find-all');
             var result = await response.json();
             setType(result)
@@ -61,7 +61,7 @@ const StaffAddVaccine = ()=>{
         description = content;
     }
 
-    function onchangeFile(){
+    function onchangeFile() {
         const [file] = document.getElementById("fileimage").files
         if (file) {
             document.getElementById("imgpreview").src = URL.createObjectURL(file)
@@ -74,7 +74,7 @@ const StaffAddVaccine = ()=>{
         var uls = new URL(document.URL)
         var id = uls.searchParams.get("id");
         var linktam = await uploadSingleFile(document.getElementById('fileimage'))
-        if(linktam != null) linkbanner = linktam
+        if (linktam != null) linkbanner = linktam
         var payload = {
             "id": id,
             "name": event.target.elements.vaccineName.value,
@@ -89,10 +89,10 @@ const StaffAddVaccine = ()=>{
             "status": event.target.elements.status.value,
         }
         var res = null;
-        if(id == null){
+        if (id == null) {
             res = await postMethodPayload('/api/vaccine/create', payload)
         }
-        else{
+        else {
             res = await postMethodPayload('/api/vaccine/update', payload)
         }
         if (res.status < 300) {
@@ -104,11 +104,11 @@ const StaffAddVaccine = ()=>{
                 }
             });
         } else {
-            if(res.status == 417){
+            if (res.status == 417) {
                 var result = await res.json();
                 toast.warning(result.defaultMessage);
             }
-            else{
+            else {
                 toast.error("Thêm/ sửa thất bại");
             }
         }
@@ -125,57 +125,57 @@ const StaffAddVaccine = ()=>{
             </div>
             <form className='row' onSubmit={addVaccine} method='post'>
                 <div className='col-sm-5'>
-                    <label class="lb-form">Tên vaccine</label>
-                    <input defaultValue={item?.name} name='vaccineName' type="text" class="form-control"/><br/>
-                    <label class="lb-form">Giá tiền</label>
-                    <input defaultValue={item?.price} name='price' class="form-control"/><br/>
-                    <label class="lb-form">Số lượng</label>
-                    <input defaultValue={item?.inventory} name='inventory' class="form-control"/><br/>
-                    <label class="lb-form">Trạng thái</label>
-                    <input defaultValue={item?.status} name='status' class="form-control"/><br/>
-                    <label class="lb-form">Ảnh</label>
-                    <input onChange={onchangeFile} id='fileimage' type='file' class="form-control"/><br/>
-                    <img id='imgpreview' src={item?.image} className='imgtable'/><br/>
-                    <label class="lb-forms">Danh mục</label>
+                    <label className="lb-form">Tên vaccine</label>
+                    <input defaultValue={item?.name} name='vaccineName' type="text" className="form-control" /><br />
+                    <label className="lb-form">Giá tiền</label>
+                    <input defaultValue={item?.price} name='price' className="form-control" /><br />
+                    <label className="lb-form">Số lượng</label>
+                    <input defaultValue={item?.inventory} name='inventory' className="form-control" /><br />
+                    <label className="lb-form">Trạng thái</label>
+                    <input defaultValue={item?.status} name='status' className="form-control" /><br />
+                    <label className="lb-form">Ảnh</label>
+                    <input onChange={onchangeFile} id='fileimage' type='file' className="form-control" /><br />
+                    <img id='imgpreview' src={item?.image} className='imgtable' /><br />
+                    <label className="lb-forms">Danh mục</label>
                     <Select
                         options={type}
                         value={typeSelect}
                         onChange={settypeSelect}
-                        getOptionLabel={(option) => option.typeName} 
-                        getOptionValue={(option) => option.id}    
+                        getOptionLabel={(option) => option.typeName}
+                        getOptionValue={(option) => option.id}
                         closeMenuOnSelect={false}
                         name='danhMuc'
                         placeholder="Chọn danh mục"
                     />
-                    <label class="lb-forms">Nhà máy sản xuất</label>
+                    <label className="lb-forms">Nhà máy sản xuất</label>
                     <Select
                         options={manufacturer}
                         value={manufacturerSelect}
                         onChange={setmanufacturerSelect}
-                        getOptionLabel={(option) => option.name} 
-                        getOptionValue={(option) => option.id}    
+                        getOptionLabel={(option) => option.name}
+                        getOptionValue={(option) => option.id}
                         closeMenuOnSelect={false}
                         name='manufacturer'
                         placeholder="Chọn nhà máy sản xuất"
                     />
-                    <label class="lb-forms">Nhóm tuổi</label>
+                    <label className="lb-forms">Nhóm tuổi</label>
                     <Select
                         options={ageGroup}
                         value={ageGroupSelect}
                         onChange={setageGroupSelect}
-                        getOptionLabel={(option) => option.ageRange} 
-                        getOptionValue={(option) => option.id}    
+                        getOptionLabel={(option) => option.ageRange}
+                        getOptionValue={(option) => option.id}
                         closeMenuOnSelect={false}
                         name='ageGroup'
                         placeholder="Chọn nhóm tuổi"
                     />
                 </div>
                 <div className='col-sm-7'>
-                    <label class="lb-forms">Mô tả vaccine</label>
+                    <label className="lb-forms">Mô tả vaccine</label>
                     <Editor name='editor' tinymceScriptSrc={'https://cdn.tiny.cloud/1/mcvdwnvee5gbrtksfafzj5cvgml51to5o3u7pfvnjhjtd2v1/tinymce/6/tinymce.min.js'}
-                                        onInit={(evt, editor) => editorRef.current = editor} 
-                                        initialValue={item==null?'':item.description}
-                                        onEditorChange={handleEditorChange}/><br/>
+                        onInit={(evt, editor) => editorRef.current = editor}
+                        initialValue={item == null ? '' : item.description}
+                        onEditorChange={handleEditorChange} /><br />
                     <button className='btn btn-primary form-control'>{textButton}</button>
                 </div>
             </form>

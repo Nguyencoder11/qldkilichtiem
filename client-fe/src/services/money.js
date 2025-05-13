@@ -7,4 +7,4 @@ function formatMoney(money) {
 }
 
 
-export {formatMoney}
+export { formatMoney }

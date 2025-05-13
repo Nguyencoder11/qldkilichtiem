@@ -1,7 +1,7 @@
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logologin from '../../assest/images/logologin.jpg'
-import {postMethodPayload} from '../../services/request'
+import { postMethodPayload } from '../../services/request'
 import Swal from 'sweetalert2'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
@@ -13,7 +13,7 @@ async function handleLogin(event) {
         password: event.target.elements.password.value
     };
     const res = await postMethodPayload('/api/user/login/email', payload);
-    
+
     var result = await res.json()
     console.log(result);
     if (res.status == 417) {
@@ -29,7 +29,7 @@ async function handleLogin(event) {
             toast.warning(result.defaultMessage);
         }
     }
-    if(res.status < 300){
+    if (res.status < 300) {
         processLogin(result.user, result.token)
     }
 };
@@ -46,7 +46,7 @@ async function processLogin(user, token) {
         window.location.href = '/index';
     }
     if (user.authorities.name === "Doctor") {
-        
+
     }
     if (user.authorities.name === "Nurse") {
         window.location.href = 'staff/vaccine';
@@ -57,10 +57,10 @@ async function processLogin(user, token) {
 }
 
 
-function login(){
+function login() {
     const handleLoginSuccess = async (accessToken) => {
         console.log(accessToken);
-        
+
         var response = await fetch('http://localhost:8080/api/user/login/google', {
             method: 'POST',
             headers: {
@@ -76,40 +76,40 @@ function login(){
             toast.warning(result.defaultMessage);
         }
     };
-    
+
     const handleLoginError = () => {
         toast.error("Đăng nhập google thất bại")
     };
 
-    return(
-        <div class="contentweb">
-        <div class="container">
-            <div class="dangnhapform">
-                <div class="divctlogin">
-                    <p class="labeldangnhap">Đăng Nhập</p>
-                    <form onSubmit={handleLogin} autocomplete="off">
-                        <label class="lbform">Tên tài khoản</label>
-                        <input required name='username' id="username" class="inputlogin"/>
-                        <label class="lbform">Mật khẩu</label>
-                        <input required name='password' type="password" id="password" class="inputlogin"/>
-                        <button class="btndangnhap">ĐĂNG NHẬP</button>
-                        <button type="button"  onClick={()=>{window.location.href = 'regis'}} class="btndangky">ĐĂNG KÝ</button>
-                    </form><br/><br/><br/>
-                    <hr/>
-                    <p className='text-center'>Hoặc đăng nhập với google</p>
-                    <GoogleOAuthProvider clientId="663646080535-l004tgn5o5cpspqdglrl3ckgjr3u8nbf.apps.googleusercontent.com">
-                    <div className='divcenter' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <GoogleLogin
-                        onSuccess={handleLoginSuccess}
-                        onError={handleLoginError}
-                    />
+    return (
+        <div className="contentweb">
+            <div className="container">
+                <div className="dangnhapform">
+                    <div className="divctlogin">
+                        <p className="labeldangnhap">Đăng Nhập</p>
+                        <form onSubmit={handleLogin} autocomplete="off">
+                            <label className="lbform">Tên tài khoản</label>
+                            <input required name='username' id="username" className="inputlogin" />
+                            <label className="lbform">Mật khẩu</label>
+                            <input required name='password' type="password" id="password" className="inputlogin" />
+                            <button className="btndangnhap">ĐĂNG NHẬP</button>
+                            <button type="button" onClick={() => { window.location.href = 'regis' }} className="btndangky">ĐĂNG KÝ</button>
+                        </form><br /><br /><br />
+                        <hr />
+                        <p className='text-center'>Hoặc đăng nhập với google</p>
+                        <GoogleOAuthProvider clientId="663646080535-l004tgn5o5cpspqdglrl3ckgjr3u8nbf.apps.googleusercontent.com">
+                            <div className='divcenter' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <GoogleLogin
+                                    onSuccess={handleLoginSuccess}
+                                    onError={handleLoginError}
+                                />
+                            </div>
+                        </GoogleOAuthProvider>
+                        <a href="/quenmatkhau" className="lbquenmk">Quên mật khẩu ?</a>
                     </div>
-                    </GoogleOAuthProvider>
-                    <a href="/quenmatkhau" class="lbquenmk">Quên mật khẩu ?</a>
                 </div>
             </div>
         </div>
-    </div>
     );
 }
 export default login;

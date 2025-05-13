@@ -3,7 +3,7 @@ import { VaccineScheduleApi } from "../../../../services/staff/VaccineSchedule.a
 import { CustomerScheduleApi } from "../../../../services/staff/CustomerSchedule.api";
 import { AppNotification } from "../../../../components/AppNotification";
 import dayjs from "dayjs";
-import { Button, Form, Input, Modal, Pagination, Popconfirm, Select, Table, Tag, DatePicker  } from "antd";
+import { Button, Form, Input, Modal, Pagination, Popconfirm, Select, Table, Tag, DatePicker } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useParams } from "react-router-dom";
@@ -96,14 +96,14 @@ export const CustomerScheduleViewDetail = () => {
     const handleApprove = (id, status, record) => {
         if (status === "cancelled") {
             setIsRefundClicked((prev) => ({ ...prev, [id]: true })); // Đánh dấu nút đã nhấn
-    
+
             CustomerScheduleApi.approveCustomerSchedule({
                 customerScheduleId: id,
                 status: status,
             })
                 .then((res) => {
                     handleCustomerSchedules(formSearch);
-    
+
                     AppNotification.success(
                         "Thông báo hoàn tiền sẽ được gửi đến khách hàng qua email."
                     );
@@ -119,7 +119,7 @@ export const CustomerScheduleViewDetail = () => {
             })
                 .then((res) => {
                     handleCustomerSchedules(formSearch);
-    
+
                     if (status === "confirmed") {
                         AppNotification.success("Duyệt lịch thành công.");
                     }
@@ -175,20 +175,20 @@ export const CustomerScheduleViewDetail = () => {
 
     const handleHealthStatusChange = (id, field, value) => {
         const customer = customerSchedules.find(item => item.id === id);
-    
+
         // Kiểm tra nếu giá trị không thay đổi thì không cần cập nhật
         if (customer[field] === value) {
             cancelEditing(field); // Thoát chế độ chỉnh sửa
             return;
         }
-    
+
         const updateData = {
             id: id,
             healthStatusBefore: customer.healthStatusBefore, // Giữ nguyên giá trị hiện tại
             healthStatusAfter: customer.healthStatusAfter,   // Giữ nguyên giá trị hiện tại
             [field]: value // Cập nhật trường được chỉnh sửa
         };
-    
+
         CustomerScheduleApi.UpdateCustomerSchedule(updateData)
             .then((res) => {
                 setCustomerSchedules(prev =>
@@ -247,7 +247,7 @@ export const CustomerScheduleViewDetail = () => {
             VaccineScheduleApi.vaccineSchedules().then(res => {
                 // Tìm lịch tiêm cụ thể từ danh sách
                 const schedule = res.data.find(item => item.id === state);
-                
+
                 if (schedule) {
                     const canRegister = !schedule.endDate || dayjs(schedule.endDate).isAfter(dayjs());
                     setCanRegisterCustomer(canRegister);
@@ -287,7 +287,7 @@ export const CustomerScheduleViewDetail = () => {
                 </div>
             );
         }
-    
+
         // Normal display mode
         return (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -322,7 +322,7 @@ export const CustomerScheduleViewDetail = () => {
 
     const handleDateFilter = (dates) => {
         console.log('Raw dates:', dates); // Log nguyên dates để kiểm tra
-    
+
         if (!dates || !dates[0] || !dates[1]) {
             setFormSearch({
                 ...formSearch,
@@ -331,12 +331,12 @@ export const CustomerScheduleViewDetail = () => {
             });
             return;
         }
-    
+
         if (dayjs(dates[0]).isAfter(dayjs(dates[1]))) {
             AppNotification.error("Ngày bắt đầu không thể lớn hơn ngày kết thúc!");
             return;
         }
-    
+
         setFormSearch({
             ...formSearch,
             startDate: dayjs(dates[0]).format("YYYY-MM-DD"),
@@ -367,15 +367,15 @@ export const CustomerScheduleViewDetail = () => {
         dataIndex: "payStatus",
         key: "payStatus",
         render: (payStatus) => (
-          <div>
-            {payStatus ? (
-              <span style={{ color: "green" }}>Đã thanh toán</span>
-            ) : (
-              <span style={{ color: "red" }}>Chưa thanh toán</span>
-            )}
-          </div>
+            <div>
+                {payStatus ? (
+                    <span style={{ color: "green" }}>Đã thanh toán</span>
+                ) : (
+                    <span style={{ color: "red" }}>Chưa thanh toán</span>
+                )}
+            </div>
         ),
-      }, {
+    }, {
         title: "Trạng Thái", dataIndex: "status", key: "status", align: "center", render: (text) => {
             return (<Tag
                 color={text === "confirmed" ? "green" : text === "pending" ? "gold" : text === "cancelled" ? "red" : text === "injected" ? "blue" : text === "not_injected" ? "purple" : "default"}
@@ -383,7 +383,7 @@ export const CustomerScheduleViewDetail = () => {
                 {text === "confirmed" ? "Đủ điều kiện" : text === "pending" ? "Chưa đủ điều kiện" : text === "cancelled" ? "Đã từ chối" : text === "injected" ? "Đã tiêm" : text === "not_injected" ? "Chưa tiêm" : ""}
             </Tag>);
         },
-    },{
+    }, {
         title: "Tình trạng sức khỏe trước tiêm",
         dataIndex: "healthStatusBefore",
         key: "healthStatusBefore",
@@ -406,38 +406,38 @@ export const CustomerScheduleViewDetail = () => {
             if (record.payStatus && record.status === "cancelled" && !isRefundClicked[record.id]) {
                 return (
                     <Popconfirm
-            title="Thông báo"
-            description="Bạn có chắc chắn muốn duyệt để gửi email hoàn tiền không?"
-            onConfirm={() => handleApprove(record.id, "cancelled")}
-            okText="Có"
-            cancelText="Không"
-        >
-            <Button
-                type="primary"
-                title="Hoàn tiền"
-                style={{
-                    backgroundColor: "#28a745", // Màu xanh lá cây tượng trưng cho hoàn tiền
-                    borderColor: "#28a745",
-                    borderRadius: "50%", // Làm nút hình tròn
-                    width: "40px", // Chiều rộng cố định
-                    height: "40px", // Chiều cao cố định
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <FontAwesomeIcon
-                    icon={faDollarSign} // Biểu tượng hình đô la
-                    style={{
-                        color: "#fff", // Màu trắng
-                        fontSize: "16px", // Kích thước biểu tượng
-                    }}
-                />
-            </Button>
-        </Popconfirm>
+                        title="Thông báo"
+                        description="Bạn có chắc chắn muốn duyệt để gửi email hoàn tiền không?"
+                        onConfirm={() => handleApprove(record.id, "cancelled")}
+                        okText="Có"
+                        cancelText="Không"
+                    >
+                        <Button
+                            type="primary"
+                            title="Hoàn tiền"
+                            style={{
+                                backgroundColor: "#28a745", // Màu xanh lá cây tượng trưng cho hoàn tiền
+                                borderColor: "#28a745",
+                                borderRadius: "50%", // Làm nút hình tròn
+                                width: "40px", // Chiều rộng cố định
+                                height: "40px", // Chiều cao cố định
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faDollarSign} // Biểu tượng hình đô la
+                                style={{
+                                    color: "#fff", // Màu trắng
+                                    fontSize: "16px", // Kích thước biểu tượng
+                                }}
+                            />
+                        </Button>
+                    </Popconfirm>
                 );
             }
-    
+
             // 2. Hiện nút duyệt khi trạng thái là "pending" và chưa thanh toán
             if (record.status === "pending" && record.payStatus) {
                 return (
@@ -475,7 +475,7 @@ export const CustomerScheduleViewDetail = () => {
                     </div>
                 );
             }
-    
+
             // 3. Trường hợp còn lại không hiển thị gì
             return null;
         }
@@ -512,53 +512,53 @@ export const CustomerScheduleViewDetail = () => {
                 Đăng ký cho khách
             </Button>
         )}
-       <div
-    style={{
-        marginTop: 20,
-        marginBottom: 20,
-        display: "flex",
-        alignItems: "center",
-        gap: "15px",
-    }}
->
-    <Input
-        style={{ width: "20%" }}
-        placeholder="Tìm theo tên"
-        onChange={(e) => {
-            setFormSearch({ ...formSearch, fullName: e.target.value });
-        }}
-    />
+        <div
+            style={{
+                marginTop: 20,
+                marginBottom: 20,
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+            }}
+        >
+            <Input
+                style={{ width: "20%" }}
+                placeholder="Tìm theo tên"
+                onChange={(e) => {
+                    setFormSearch({ ...formSearch, fullName: e.target.value });
+                }}
+            />
 
-    <RangePicker
-        style={{ width: "60%" }}
-        placeholder={["Start Date", "End Date"]}
-        format="YYYY-MM-DD"
-        onChange={(dates) => handleDateFilter(dates)}
-    />
+            <RangePicker
+                style={{ width: "60%" }}
+                placeholder={["Start Date", "End Date"]}
+                format="YYYY-MM-DD"
+                onChange={(dates) => handleDateFilter(dates)}
+            />
 
-    <Select
-        showSearch
-        style={{
-            width: 170,
-            marginLeft: "auto",
-            display: "flex",
-            alignItems: "center",
-            marginRight: 30,
-        }}
-        optionFilterProp="children"
-        onChange={(value) => {
-            setFormSearch({ ...formSearch, status: value });
-        }}
-        filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-        value={formSearch?.status}
-    >
-        {statusOptions.map((status) => (
-            <Option key={status.value} value={status.value}>
-                {status.label}
-            </Option>
-        ))}
-    </Select>
-</div>
+            <Select
+                showSearch
+                style={{
+                    width: 170,
+                    marginLeft: "auto",
+                    display: "flex",
+                    alignItems: "center",
+                    marginRight: 30,
+                }}
+                optionFilterProp="children"
+                onChange={(value) => {
+                    setFormSearch({ ...formSearch, status: value });
+                }}
+                filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                value={formSearch?.status}
+            >
+                {statusOptions.map((status) => (
+                    <Option key={status.value} value={status.value}>
+                        {status.label}
+                    </Option>
+                ))}
+            </Select>
+        </div>
 
         <>
             <Table

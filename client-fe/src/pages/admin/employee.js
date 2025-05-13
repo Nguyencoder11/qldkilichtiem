@@ -25,12 +25,12 @@ const Employee = () => {
     }, [searchTerm, activeTab]);
 
     const loadData = async (page) => {
-        const baseUrl = activeTab === 'doctors' 
+        const baseUrl = activeTab === 'doctors'
             ? '/api/doctor/admin/list-doctor'
             : '/api/nurse/admin/list-nurse';
-            
+
         const url = `${baseUrl}?page=${page}&size=${size}&sort=id,asc${searchTerm ? '&q=' + searchTerm : ''}`;
-        
+
         try {
             const response = await getMethod(url);
             const result = await response.json();
@@ -50,7 +50,7 @@ const Employee = () => {
         const confirmDelete = window.confirm("Bạn chắc chắn muốn xóa?");
         if (!confirmDelete) return;
 
-        const baseUrl = activeTab === 'doctors' 
+        const baseUrl = activeTab === 'doctors'
             ? `/api/doctor/admin/delete/${id}`
             : `/api/nurse/admin/delete/${id}`;
 
@@ -69,7 +69,7 @@ const Employee = () => {
     };
 
     const handleEditClick = (item) => {
-        setEditItem({...item});
+        setEditItem({ ...item });
         if (editModal) {
             editModal.show();
         }
@@ -95,7 +95,7 @@ const Employee = () => {
             if (response.status < 300) {
                 toast.success("Cập nhật thành công!");
                 loadData(0);
-                
+
                 if (editModal) {
                     editModal.hide();
                     document.body.classList.remove('modal-open');
@@ -119,13 +119,13 @@ const Employee = () => {
     return (
         <>
             <div className="nav nav-tabs mb-3">
-                <button 
+                <button
                     className={`nav-link ${activeTab === 'doctors' ? 'active' : ''}`}
                     onClick={() => setActiveTab('doctors')}
                 >
                     Danh sách bác sĩ
                 </button>
-                <button 
+                <button
                     className={`nav-link ${activeTab === 'nurses' ? 'active' : ''}`}
                     onClick={() => setActiveTab('nurses')}
                 >
@@ -219,13 +219,13 @@ const Employee = () => {
                             {selectedItem && (
                                 <div>
                                     <p><strong>Họ tên:</strong> {selectedItem.fullName}</p>
-                                    <p><strong>{activeTab === 'doctors' ? 'Chuyên môn:' : 'Trình độ:'}</strong> 
+                                    <p><strong>{activeTab === 'doctors' ? 'Chuyên môn:' : 'Trình độ:'}</strong>
                                         {activeTab === 'doctors' ? selectedItem.specialization : selectedItem.qualification}
                                     </p>
                                     <p><strong>Năm kinh nghiệm:</strong> {selectedItem.experienceYears}</p>
                                     <p><strong>Mô tả:</strong> {selectedItem.bio}</p>
                                     {selectedItem.avatar && (
-                                        <img src={selectedItem.avatar} style={{maxWidth: '200px'}} alt="Avatar" />
+                                        <img src={selectedItem.avatar} style={{ maxWidth: '200px' }} alt="Avatar" />
                                     )}
                                 </div>
                             )}
@@ -252,57 +252,57 @@ const Employee = () => {
                                 <div>
                                     <div className="mb-3">
                                         <label className="form-label">Họ tên</label>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             className="form-control"
                                             value={editItem.fullName}
-                                            onChange={(e) => setEditItem({...editItem, fullName: e.target.value})}
+                                            onChange={(e) => setEditItem({ ...editItem, fullName: e.target.value })}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">
                                             {activeTab === 'doctors' ? 'Chuyên môn' : 'Trình độ'}
                                         </label>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
                                             className="form-control"
                                             value={activeTab === 'doctors' ? editItem.specialization : editItem.qualification}
-                                            onChange={(e) => setEditItem(activeTab === 'doctors' 
-                                                ? {...editItem, specialization: e.target.value}
-                                                : {...editItem, qualification: e.target.value}
+                                            onChange={(e) => setEditItem(activeTab === 'doctors'
+                                                ? { ...editItem, specialization: e.target.value }
+                                                : { ...editItem, qualification: e.target.value }
                                             )}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Năm kinh nghiệm</label>
-                                        <input 
-                                            type="number" 
+                                        <input
+                                            type="number"
                                             className="form-control"
                                             value={editItem.experienceYears}
-                                            onChange={(e) => setEditItem({...editItem, experienceYears: parseInt(e.target.value)})}
+                                            onChange={(e) => setEditItem({ ...editItem, experienceYears: parseInt(e.target.value) })}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Mô tả</label>
-                                        <textarea 
+                                        <textarea
                                             className="form-control"
                                             value={editItem.bio}
-                                            onChange={(e) => setEditItem({...editItem, bio: e.target.value})}
+                                            onChange={(e) => setEditItem({ ...editItem, bio: e.target.value })}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Ảnh đại diện</label>
-                                        <input 
-                                            type="file" 
-                                            className="form-control" 
-                                            id="avatarUpload" 
-                                            accept="image/*" 
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            id="avatarUpload"
+                                            accept="image/*"
                                         />
                                         {editItem.avatar && (
-                                            <img 
-                                                src={editItem.avatar} 
-                                                style={{maxWidth: '200px', marginTop: '10px'}} 
-                                                alt="Current Avatar" 
+                                            <img
+                                                src={editItem.avatar}
+                                                style={{ maxWidth: '200px', marginTop: '10px' }}
+                                                alt="Current Avatar"
                                             />
                                         )}
                                     </div>

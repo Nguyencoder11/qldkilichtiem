@@ -1,6 +1,6 @@
-import {Form, Input, message, Modal, Select} from "antd";
-import React, {useEffect} from "react";
-import {CustomerScheduleApi} from "../../../../services/staff/CustomerSchedule.api";
+import { Form, Input, message, Modal, Select } from "antd";
+import React, { useEffect } from "react";
+import { CustomerScheduleApi } from "../../../../services/staff/CustomerSchedule.api";
 const { Option } = Select;
 export default function ModalUpdateCustomerSchedule(props) {
     const [form] = Form.useForm();
@@ -44,7 +44,7 @@ export default function ModalUpdateCustomerSchedule(props) {
                 onCreateSuccess(true)
                 onCancel();
             })
-            .catch((err) => { console.log(err)});
+            .catch((err) => { console.log(err) });
     }
 
     return (
@@ -53,19 +53,19 @@ export default function ModalUpdateCustomerSchedule(props) {
                 <Form
                     name="basic"
                     form={form}
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 16}}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
                     onFinish={onOk}
                     autoComplete="off"
                 >
                     <Form.Item label="Ghi chú" name="note">
-                        <Input/>
+                        <Input />
                     </Form.Item>
                     <Form.Item label="Trạng thái sức khỏe KH trước tiêm" name="healthStatusBefore">
-                        <Input/>
+                        <Input />
                     </Form.Item>
                     <Form.Item label="Trạng thái sức khỏe KH sau tiêm" name="healthStatusAfter">
-                        <Input/>
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         label="Status"

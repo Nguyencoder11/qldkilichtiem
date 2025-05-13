@@ -3,7 +3,7 @@ var firstUrl = 'http://localhost:8080'
 async function uploadSingleFile(filePath) {
     const formData = new FormData()
     formData.append("file", filePath.files[0])
-    var urlUpload = firstUrl+'/api/public/upload-file';
+    var urlUpload = firstUrl + '/api/public/upload-file';
     const res = await fetch(urlUpload, {
         method: 'POST',
         body: formData
@@ -12,7 +12,7 @@ async function uploadSingleFile(filePath) {
         var linkImage = await res.text();
         return linkImage;
     }
-    else{
+    else {
         return null;
     }
 }
@@ -36,7 +36,7 @@ async function uploadMultipleFile(listFile) {
 
 var token = localStorage.getItem("token");
 async function getMethod(url) {
-    if(url.includes(firstUrl) == false){
+    if (url.includes(firstUrl) == false) {
         url = firstUrl + url;
     }
     const response = await fetch(url, {
@@ -49,7 +49,7 @@ async function getMethod(url) {
 }
 
 async function postMethod(url) {
-    if(url.includes(firstUrl) == false){
+    if (url.includes(firstUrl) == false) {
         url = firstUrl + url;
     }
     const response = await fetch(url, {
@@ -62,7 +62,7 @@ async function postMethod(url) {
 }
 
 async function postMethodPayload(url, payload) {
-    if(url.includes(firstUrl) == false){
+    if (url.includes(firstUrl) == false) {
         url = firstUrl + url;
     }
     const response = await fetch(url, {
@@ -77,7 +77,7 @@ async function postMethodPayload(url, payload) {
 }
 
 async function deleteMethod(url) {
-    if(url.includes(firstUrl) == false){
+    if (url.includes(firstUrl) == false) {
         url = firstUrl + url;
     }
     const response = await fetch(url, {
@@ -90,7 +90,7 @@ async function deleteMethod(url) {
 }
 
 async function putMethod(url, payload) {
-    if(url.includes(firstUrl) == false){
+    if (url.includes(firstUrl) == false) {
         url = firstUrl + url;
     }
     const response = await fetch(url, {
@@ -104,4 +104,4 @@ async function putMethod(url, payload) {
     return response
 }
 
-export {getMethod, postMethod, uploadSingleFile, uploadMultipleFile, postMethodPayload, deleteMethod, putMethod}
+export { getMethod, postMethod, uploadSingleFile, uploadMultipleFile, postMethodPayload, deleteMethod, putMethod }

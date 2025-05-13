@@ -165,38 +165,38 @@ function ChatFrame() {
     return <></>
   }
   return (
-    <div class="chat-container">
-      <button class="chat-button" id="btnopenchat" type='button' onClick={() => toggleChat()}><i class="fa fa-comment"></i> Hỗ trợ</button>
+    <div className="chat-container">
+      <button className="chat-button" id="btnopenchat" type='button' onClick={() => toggleChat()}><i className="fa fa-comment"></i> Hỗ trợ</button>
 
-      <div id="chat-box" class="chat-box">
-        <div class="chat-header">
+      <div id="chat-box" className="chat-box">
+        <div className="chat-header">
           <h5>Nhân viên CSKH</h5>
-          <button class="close-btn" onClick={() => toggleChat()}>X</button>
+          <button className="close-btn" onClick={() => toggleChat()}>X</button>
         </div>
-        <div class="chat-body" id="scroll-to-bottom">
+        <div className="chat-body" id="scroll-to-bottom">
           <div id="listchat">
             {itemChat.map((item, index) => {
               if (item.sender.authorities.name == "Customer") {
                 if (item.isFile != true) {
-                  return <p class="mychat">{item.content}</p>
+                  return <p className="mychat">{item.content}</p>
                 }
                 else {
-                  return <img class="mychatimg" src={item.content} />
+                  return <img className="mychatimg" src={item.content} />
                 }
               }
               else {
                 if (item.isFile != true) {
-                  return <p class="adminchat">{item.content}</p>
+                  return <p className="adminchat">{item.content}</p>
                 }
                 else {
-                  return <img class="adminchatimg" src={item.content} />
+                  return <img className="adminchatimg" src={item.content} />
                 }
               }
             })}
           </div>
         </div>
         <input onChange={sendFileMessage} type='file' className='hidden' id='btnsendfile' />
-        <div class="chat-footer">
+        <div className="chat-footer">
           <input onKeyDown={handleKeyDown} type="text" id="contentmess" placeholder="Nhập tin nhắn..." />
           <div>
             <button id="sendfile" onClick={() => document.getElementById("btnsendfile").click()}>

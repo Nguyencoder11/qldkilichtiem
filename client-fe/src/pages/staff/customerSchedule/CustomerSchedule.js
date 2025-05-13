@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Button, Form, Input, Modal, Pagination, Popconfirm, Select, Table, Tag,} from "antd";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faRemove} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Form, Input, Modal, Pagination, Popconfirm, Select, Table, Tag, } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faRemove } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 // import ModalHandle from "./modal/modalHandle";
-import {AppNotification} from "../../../components/AppNotification";
-import {CustomerScheduleApi} from "../../../services/staff/CustomerSchedule.api";
-import {VaccineScheduleApi} from "../../../services/staff/VaccineSchedule.api";
+import { AppNotification } from "../../../components/AppNotification";
+import { CustomerScheduleApi } from "../../../services/staff/CustomerSchedule.api";
+import { VaccineScheduleApi } from "../../../services/staff/VaccineSchedule.api";
 
 const { Option } = Select;
 const CustomerSchedule = () => {
@@ -137,15 +137,15 @@ const CustomerSchedule = () => {
       })
       .catch((err) => {
         const errorMessage = err.response.data.defaultMessage
-        if(err){
+        if (err) {
           AppNotification.error(errorMessage);
-        }else{
+        } else {
           AppNotification.error("Thêm mới thất bại");
         }
         console.log(err);
       });
   };
-  
+
   const columns = [
     {
       title: "STT",
@@ -208,15 +208,15 @@ const CustomerSchedule = () => {
               text === "confirmed"
                 ? "green"
                 : text === "pending"
-                ? "gold"
-                : "red"
+                  ? "gold"
+                  : "red"
             }
           >
             {text === "confirmed"
               ? "Đã duyệt"
               : text === "pending"
-              ? "Chờ duyệt"
-              : "Đã từ chối"}
+                ? "Chờ duyệt"
+                : "Đã từ chối"}
           </Tag>
         );
       },

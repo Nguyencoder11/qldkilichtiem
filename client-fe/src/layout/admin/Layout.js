@@ -34,13 +34,13 @@ function Header({ children }) {
                         <i className="fa fa-list"></i> Danh mục
                     </a>
                     <a href="lich-tiem-chung">
-                        <i className="fa fa-calendar-check-o"></i> Lịch tiêm chủng
+                        <i className="fa fa-calendar"></i> Lịch tiêm chủng
                     </a>
                     <a href="khach-hang">
                         <i className="fa fa-users"></i> Quản lý khách hàng
                     </a>
                     <a href="nhan-vien">
-                        <i className="fa fa-user-md"></i> Quản lý bác sỹ, y tá
+                        <i className="fa fa-user-md"></i> Quản lý bác sĩ, y tá
                     </a>
                     <a href="#" onClick={() => logout()}>
                         <i className="fa fa-sign-out"></i> Đăng xuất

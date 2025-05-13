@@ -1,4 +1,4 @@
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
 
@@ -6,9 +6,9 @@ import Swal from 'sweetalert2'
 async function handleChangePass(event) {
     var token = localStorage.getItem('token');
     event.preventDefault();
-    if(event.target.elements.newpass.value != event.target.elements.renewpass.value){
+    if (event.target.elements.newpass.value != event.target.elements.renewpass.value) {
         toast.error("Mật khẩu mới không trùng khớp");
-        return; 
+        return;
     }
     const payload = {
         oldPass: event.target.elements.currentpass.value,
@@ -26,7 +26,7 @@ async function handleChangePass(event) {
         var result = await res.json()
         toast.error(result.defaultMessage);
     }
-    if(res?.status < 300){
+    if (res?.status < 300) {
         toast.success("Đổi mật khẩu thành công!");
         await new Promise(resolve => setTimeout(resolve, 1500));
         window.location.reload();
@@ -34,4 +34,4 @@ async function handleChangePass(event) {
 };
 
 
-export {handleChangePass}
+export { handleChangePass }

@@ -61,8 +61,8 @@ function TraCuuLichTiem(){
                 <div className='col-sm-12'>
                     <p className='link-head-section'>
                         <a href="https://vnvc.vn/">Trang chủ</a>
-                        <span class="separator"> » </span>
-                        <span class="last">Tra cứu lịch tiêm chủng</span>
+                        <span className="separator"> » </span>
+                        <span className="last">Tra cứu lịch tiêm chủng</span>
                     </p>
                     <div className='section-content-web'>
                         <div className='flex-section'>
@@ -127,14 +127,14 @@ function TraCuuLichTiem(){
                         activeClassName='active'/>
                 </div>
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thông tin vaccine</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Thông tin vaccine</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <table className='table'>
                             <tr>
                                 <th>Ảnh</th>

@@ -43,12 +43,12 @@ export class CustomerScheduleApi {
     });
   };
 
-//   static sendRefundEmail = (id) => {
-//     return axios({
-//         method: "POST",
-//         url: `/api/customer-schedule/customer/refund-email`,
-//         data: { id: id }, // Truyền tham số qua body
-//     });
-// };
-  
+  //   static sendRefundEmail = (id) => {
+  //     return axios({
+  //         method: "POST",
+  //         url: `/api/customer-schedule/customer/refund-email`,
+  //         data: { id: id }, // Truyền tham số qua body
+  //     });
+  // };
+
 }

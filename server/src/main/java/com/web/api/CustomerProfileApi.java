@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/api/customer-profile")
 @CrossOrigin
@@ -24,41 +26,48 @@ public class CustomerProfileApi {
     private CustomerProfileService customerProfileService;
 
     @GetMapping("/customer/find-by-user")
-    public ResponseEntity<?> findByUser(){
+    public ResponseEntity<?> findByUser() {
         CustomerProfile result = customerProfileService.findByUser();
-        System.out.println("customer: "+result.getId());
+        System.out.println("customer: " + result.getId());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/customer/update-profile")
-    public ResponseEntity<?> update(@RequestBody CustomerProfile customerProfile){
-        CustomerProfile result = customerProfileService.update(customerProfile);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<?> update(@RequestBody CustomerProfile customerProfile) {
+        try {
+            CustomerProfile result = customerProfileService.update(customerProfile);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+        }
     }
 
-    /* -----------ADMIN-----------*/
+    /* -----------ADMIN----------- */
 
-    /* Get list customer*/
+    /* Get list customer */
     @GetMapping("/admin/list-customer")
-    public ResponseEntity<?> findAllCustomerProfile(@RequestParam(required = false) String q, Pageable pageable){
+    public ResponseEntity<?> findAllCustomerProfile(@RequestParam(required = false) String q, Pageable pageable) {
         Page<CustomerProfileDTO> result = customerProfileService.getCustomers(q, pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    /* update customer*/
+    /* update customer */
     @PutMapping("/admin/update/{id}")
-    public ResponseEntity<?> updateCustomerProfile(@PathVariable("id") Long id, @RequestBody CustomerProfile customerProfile){
+    public ResponseEntity<?> updateCustomerProfile(@PathVariable("id") Long id,
+            @RequestBody CustomerProfile customerProfile) {
         CustomerProfileDTO customerUpdated = customerProfileService.updateCustomerProfile(id, customerProfile);
         return new ResponseEntity<>(customerUpdated, HttpStatus.OK);
     }
 
-    /* Delete a customer*/
+    /* Delete a customer */
     @DeleteMapping("/admin/delete/{id}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long id) {
         customerProfileService.deleteCustomer(id);
         return ResponseEntity.ok().build();
     }
 
-    /* -----------ADMIN-----------*/
+    /* -----------ADMIN----------- */
 
 }

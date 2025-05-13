@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 @Component
 public class CustomerProfileService {
 
@@ -35,6 +37,16 @@ public class CustomerProfileService {
     public CustomerProfile update(CustomerProfile customerProfile){
         User user = userUtils.getUserWithAuthority();
         CustomerProfile ex = customerProfileRepository.findByUser(user.getId());
+
+        if (ex == null) {
+            // Handle case where the profile does not exist
+            // throw new EntityNotFoundException("CustomerProfile not found for user ID: " + user.getId());
+            ex = new CustomerProfile();
+            ex.setUser(user);
+            ex.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+            customerProfileRepository.save(ex);
+        }
+
         customerProfile.setId(ex.getId());
         customerProfile.setCreatedDate(ex.getCreatedDate()==null?new Timestamp(System.currentTimeMillis()):ex.getCreatedDate());
         customerProfile.setUser(user);

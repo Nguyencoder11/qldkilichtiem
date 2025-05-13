@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import $ from 'jquery';
 import Swal from 'sweetalert2';
 import ReactPaginate from 'react-paginate';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {getMethod, postMethodPayload} from '../../services/request';
+import { getMethod, postMethodPayload } from '../../services/request';
 import Select from 'react-select';
 
 const AdminAddDanhMuc = () => {
@@ -12,18 +12,18 @@ const AdminAddDanhMuc = () => {
     const [items, setItems] = useState([]);
     const [selectParent, setselectParent] = useState(null);
     useEffect(() => {
-        const getDanhMucCha = async() =>{
+        const getDanhMucCha = async () => {
             var response = await getMethod('/api/vaccine-type/find-primary')
             var result = await response.json();
             setItems(result)
         };
         getDanhMucCha();
 
-        const getById = async() =>{
+        const getById = async () => {
             var uls = new URL(document.URL)
             var id = uls.searchParams.get("id");
-            if(id != null){
-                var response = await getMethod('/api/vaccine-type/find-by-id?id='+id)
+            if (id != null) {
+                var response = await getMethod('/api/vaccine-type/find-by-id?id=' + id)
                 var result = await response.json();
                 setCategory(result)
                 document.getElementById("primaryCate").checked = result.isPrimary
@@ -42,10 +42,10 @@ const AdminAddDanhMuc = () => {
             "typeName": document.getElementById("catename").value,
             "isPrimary": document.getElementById("primaryCate").checked,
         };
-        if(selectParent != null){
+        if (selectParent != null) {
             obj.vaccineType = { id: selectParent.id };
         }
-        const response = await postMethodPayload(url,obj)
+        const response = await postMethodPayload(url, obj)
         if (response.status < 300) {
             Swal.fire({
                 title: "Thông báo",
@@ -63,26 +63,26 @@ const AdminAddDanhMuc = () => {
 
     return (
         <>
-            <div class="col-sm-5">
-                    <label class="lb-form">Tên danh mục</label>
-                    <input defaultValue={category?.typeName} id="catename" type="text" class="form-control"/><br/>
-                    <label class="checkbox-custom">Danh mục chính 
-                        <input id="primaryCate" type="checkbox"/>
-                        <span class="checkmark-checkbox"></span>
-                    </label><br/>
-                    <label class="lb-form">Danh mục cha</label>
-                    <Select
-                        options={items}
-                        value={selectParent}
-                        onChange={setselectParent}
-                        getOptionLabel={(option) => option.typeName} 
-                        getOptionValue={(option) => option.id}    
-                        closeMenuOnSelect={false}
-                        name='danhmuccha'
-                        placeholder="Chọn danh mục cha"
-                    />
-                    <br/>
-                    <button onClick={()=>saveCategory()} class="btn btn-success form-control action-btn">Thêm/ Cập nhật danh mục</button>
+            <div className="col-sm-5">
+                <label className="lb-form">Tên danh mục</label>
+                <input defaultValue={category?.typeName} id="catename" type="text" className="form-control" /><br />
+                <label className="checkbox-custom">Danh mục chính
+                    <input id="primaryCate" type="checkbox" />
+                    <span className="checkmark-checkbox"></span>
+                </label><br />
+                <label className="lb-form">Danh mục cha</label>
+                <Select
+                    options={items}
+                    value={selectParent}
+                    onChange={setselectParent}
+                    getOptionLabel={(option) => option.typeName}
+                    getOptionValue={(option) => option.id}
+                    closeMenuOnSelect={false}
+                    name='danhmuccha'
+                    placeholder="Chọn danh mục cha"
+                />
+                <br />
+                <button onClick={() => saveCategory()} className="btn btn-success form-control action-btn">Thêm/ Cập nhật danh mục</button>
             </div>
         </>
     );

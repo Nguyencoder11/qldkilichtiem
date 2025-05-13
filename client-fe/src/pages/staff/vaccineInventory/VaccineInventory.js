@@ -63,7 +63,7 @@ const VaccineInventory = () => {
         setPageSize(res.data.size);
         const dataVacines = res.data.content.map((item) => ({
           ...item,
-          expirationDate: item.expirationDate 
+          expirationDate: item.expirationDate
         }));
         setVaccineInventorys(
           updatedList(dataVacines, formSearch.page, formSearch.limit)
@@ -302,6 +302,7 @@ const VaccineInventory = () => {
         >Export</Button>
       </div>
       <Table
+        key={columns.keys}
         columns={columns}
         dataSource={vaccineInventorys || []}
         pagination={false}
@@ -319,17 +320,21 @@ const VaccineInventory = () => {
           current={currentPage}
           pageSize={pageSize}
           total={total}
-          showSizeChanger
           onChange={onPageChange}
+          showSizeChanger
+          showTotal={(total) => `Tổng số bản ghi: ${total}`}
           style={{ marginLeft: "auto" }}
         />
       </div>
       <Modal
-        title={"Xuất vaccine"}
-        visible={modalHandle.status}
+        title={`Xuất kho vaccine: ${modalHandle.name}`}
+        open={modalHandle.status}
+        okText="Xuất"
+        cancelText="Hủy"
+        onOk={() => handlePlusVaccine(modalHandle.name)}
         onCancel={closeModal}
-        okButtonProps={{ style: { display: "none" } }}
-        cancelButtonProps={{ style: { display: "none" } }}
+        okButtonProps={{ style: { display: "block" } }}
+        cancelButtonProps={{ style: { display: "block" } }}
       >
         <div
           style={{
@@ -350,17 +355,6 @@ const VaccineInventory = () => {
               type="number"
             />
           </div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <Button style={{ marginLeft: "auto" }} onClick={closeModal}>
-            Hủy
-          </Button>
-          <Button
-            style={{ marginLeft: 10 }}
-            onClick={() => handlePlusVaccine(modalHandle.name)}
-          >
-            Xuất
-          </Button>
         </div>
       </Modal>
     </React.Fragment>

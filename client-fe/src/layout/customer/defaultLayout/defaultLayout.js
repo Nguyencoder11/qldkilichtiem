@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Headers from "../header/header";
 import Footer from "../footer/footer";
 import ChatFrame from "../../../pages/customer/chat";
+import "../../../responsive/style.css";
 
 function DefaultLayout({ children }) {
     useEffect(() => {

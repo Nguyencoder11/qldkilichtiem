@@ -3,9 +3,9 @@ import logomini from '../../assest/images/logomini.svg'
 import { useState, useEffect } from 'react'
 import { Parser } from "html-to-react";
 import ReactPaginate from 'react-paginate';
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Select from 'react-select';
-import {getMethod, postMethod, postMethodPayload,uploadSingleFile} from '../../services/request';
+import { getMethod, postMethod, postMethodPayload, uploadSingleFile } from '../../services/request';
 import Swal from 'sweetalert2'
 
 var avatar = '';
@@ -13,7 +13,7 @@ async function handleUpdateInfor(event) {
     event.preventDefault();
     document.getElementById("loading").style.display = 'block'
     var LinkImg = await uploadSingleFile(document.getElementById("fileupload"));
-    if(LinkImg != null){
+    if (LinkImg != null) {
         avatar = LinkImg;
     }
     const payload = {
@@ -33,29 +33,29 @@ async function handleUpdateInfor(event) {
         var result = await res.json()
         toast.warning(result.defaultMessage);
     }
-    if(res.status < 300){
+    if (res.status < 300) {
         toast.success("Cập nhật thông tin thành công")
         await new Promise(resolve => setTimeout(resolve, 1000));
         window.location.reload();
     }
     document.getElementById("loading").style.display = 'none'
 };
-function CapNhatThongTin(){
+function CapNhatThongTin() {
     const [address, setAddress] = useState([]);
     const [huyen, setHuyen] = useState([]);
     const [profile, setProfile] = useState(null);
     const [tinh, setTinh] = useState(null);
     const [huyencs, setHuyenCs] = useState(null);
     const [baohiem, setBaoHiem] = useState(false);
-    
-    useEffect(()=>{
-        const getAddress= async() =>{
+
+    useEffect(() => {
+        const getAddress = async () => {
             const response = await fetch('https://provinces.open-api.vn/api/?depth=2', {
             });
             var result = await response.json();
             setAddress(result)
         };
-        const getCustomer= async() =>{
+        const getCustomer = async () => {
             const response = await getMethod('/api/customer-profile/customer/find-by-user')
             var result = await response.json();
             setProfile(result)
@@ -76,56 +76,56 @@ function CapNhatThongTin(){
         getAddress();
         getCustomer();
     }, []);
-    
+
     const loadHuyen = async (option) => {
         var value = option.value;
-        for(var i=0; i< address.length; i++){
-            if(address[i].name == value){
+        for (var i = 0; i < address.length; i++) {
+            if (address[i].name == value) {
                 setHuyen(address[i].districts)
             }
         }
         setTinh(option.value)
     }
 
-    function clickChooseFile(){
+    function clickChooseFile() {
         document.getElementById("fileupload").click();
     }
 
-    function preImage(){
+    function preImage() {
         const [file] = document.getElementById("fileupload").files
         if (file) {
             document.getElementById("imgpreview").src = URL.createObjectURL(file)
         }
     }
 
-    function changeBh(){
+    function changeBh() {
         var value = document.getElementById("insurance").checked
         setBaoHiem(value)
     }
 
-    return(
-        <form onSubmit={handleUpdateInfor} class="row">
+    return (
+        <form onSubmit={handleUpdateInfor} className="row">
             <div className='col-sm-4'>
-                <label class="lbacc">Họ tên *</label>
-                <input name="fullname" defaultValue={profile!=null?profile.fullName:''} class="form-control" required/>
-                <label class="lbacc">Số điện thoại liên lạc *</label>
-                <input name="phone" defaultValue={profile!=null?profile.phone:''} class="form-control" required/>
-                <label class="lbacc">Giới tính *</label>
-                <select name="gender" class="form-control">
-                    <option value="Male" selected={profile==null?false:(profile.gender =='Male')}>Nam</option>
-                    <option value="Female" selected={profile==null?false:(profile.gender =='Female')}>Nữ</option>
-                    <option value="Other" selected={profile==null?false:(profile.gender =='Other')}>Khác</option>
+                <label className="lbacc">Họ tên *</label>
+                <input name="fullname" defaultValue={profile != null ? profile.fullName : ''} className="form-control" required />
+                <label className="lbacc">Số điện thoại liên lạc *</label>
+                <input name="phone" defaultValue={profile != null ? profile.phone : ''} className="form-control" required />
+                <label className="lbacc">Giới tính *</label>
+                <select name="gender" className="form-control">
+                    <option value="Male" selected={profile == null ? false : (profile.gender == 'Male')}>Nam</option>
+                    <option value="Female" selected={profile == null ? false : (profile.gender == 'Female')}>Nữ</option>
+                    <option value="Other" selected={profile == null ? false : (profile.gender == 'Other')}>Khác</option>
                 </select>
-                <label class="lbacc">Ngày sinh</label>
-                <input name="birthdate" defaultValue={profile!=null?profile.birthdate:''} type='date' class="form-control" required/>
-                <br/>
-                <label class="checkbox-custom">Đã có bảo hiểm 
-                    <input id='insurance' onChange={changeBh} type="checkbox" checked={baohiem}/>
-                    <span class="checkmark-checkbox"></span>
+                <label className="lbacc">Ngày sinh</label>
+                <input name="birthdate" defaultValue={profile != null ? profile.birthdate : ''} type='date' className="form-control" required />
+                <br />
+                <label className="checkbox-custom">Đã có bảo hiểm
+                    <input id='insurance' onChange={changeBh} type="checkbox" checked={baohiem} />
+                    <span className="checkmark-checkbox"></span>
                 </label>
             </div>
             <div className='col-sm-4'>
-                <label class="lbacc">Tỉnh/ Thành phố</label>
+                <label className="lbacc">Tỉnh/ Thành phố</label>
                 <Select
                     options={address.map((item) => ({
                         label: item.name,
@@ -135,30 +135,30 @@ function CapNhatThongTin(){
                     placeholder="Chọn tỉnh/ thành phố"
                     name='city'
                     value={{ label: tinh, value: tinh }}
-                    isSearchable={true} 
+                    isSearchable={true}
                 />
 
-                <label class="lbacc">Quận/ huyện</label>
-                <select class="form-control" name='district' id='district'>
-                    {huyen.map((item, index)=>{
-                        return <option selected={huyencs == item.name?true:false} value={item.name}>{item.name}</option>
+                <label className="lbacc">Quận/ huyện</label>
+                <select className="form-control" name='district' id='district'>
+                    {huyen.map((item, index) => {
+                        return <option selected={huyencs == item.name ? true : false} value={item.name}>{item.name}</option>
                     })}
                 </select>
-                <label class="lbacc">Phường/ xã</label>
-                <input name="ward" defaultValue={profile!=null?profile.ward:''} class="form-control" required/>
-                <label class="lbacc">tên đường, số nhà</label>
-                <input name="street" class="form-control"  defaultValue={profile!=null?profile.street:''}  required/>
-                <br/>
+                <label className="lbacc">Phường/ xã</label>
+                <input name="ward" defaultValue={profile != null ? profile.ward : ''} className="form-control" required />
+                <label className="lbacc">tên đường, số nhà</label>
+                <input name="street" className="form-control" defaultValue={profile != null ? profile.street : ''} required />
+                <br />
                 <div id="loading">
-                    <div class="bar1 bar"></div>
-                </div><br/>
-                <button type="submit" class="btndoimk">LƯU</button>
+                    <div className="bar1 bar"></div>
+                </div><br />
+                <button type="submit" className="btndoimk">LƯU</button>
             </div>
             <div className='col-sm-4'>
-                <label class="lbacc">Chọn hình ảnh</label>
-                <img id='imgpreview' src={profile!=null?profile.avatar:''} className='image-profile'/>
-                <button onClick={()=>clickChooseFile()} type='button' className='btnuploadimage-profile'><i className='fa fa-upload'></i> Chọn ảnh</button>
-                <input onChange={()=>preImage()} type='file' className='hidden' name="fileupload" id='fileupload'/>
+                <label className="lbacc">Chọn hình ảnh</label>
+                <img id='imgpreview' src={profile != null ? profile.avatar : ''} className='image-profile' />
+                <button onClick={() => clickChooseFile()} type='button' className='btnuploadimage-profile'><i className='fa fa-upload'></i> Chọn ảnh</button>
+                <input onChange={() => preImage()} type='file' className='hidden' name="fileupload" id='fileupload' />
             </div>
         </form>
     );

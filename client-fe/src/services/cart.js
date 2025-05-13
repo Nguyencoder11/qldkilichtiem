@@ -1,4 +1,4 @@
-import {getMethod,getMethodPostByToken} from '../../services/request'
+import { getMethod, getMethodPostByToken } from '../../services/request'
 
 var token = localStorage.getItem("token");
 async function countCartHeader() {
@@ -11,4 +11,4 @@ async function countCartHeader() {
     return response
 }
 
-export {countCartHeader}
+export { countCartHeader }

@@ -11,7 +11,7 @@ import {
   Row,
   Select,
   Table,
-  
+
   Tag,
 } from "antd";
 import { VaccineApi } from "../../../services/staff/Vaccine.api";
@@ -56,7 +56,7 @@ const Vaccine = () => {
   // Lấy danh sách vaccine
   const handleGetVaccines = async (formSearch) => {
     setLoading(true);
-    
+
     await VaccineApi.vaccines(formSearch)
       .then((res) => {
         setTotal(res.data.totalElements);
@@ -233,7 +233,7 @@ const Vaccine = () => {
           >
             <FontAwesomeIcon icon={faEdit} />
           </Button> */}
-          <a href={"add-vaccine?id="+record.id} className="btn btn-primary"><i className="fa fa-edit"></i></a>
+          <a href={"add-vaccine?id=" + record.id} className="btn btn-primary"><i className="fa fa-edit"></i></a>
           <Popconfirm
             title="Thông báo"
             description="Bạn có chắc chắn muốn xóa không?"
@@ -315,15 +315,15 @@ const Vaccine = () => {
 
       <Card className="table-container">
         <div className="headvcine">
-        <div className="table-container-title">
-          <FontAwesomeIcon
-            icon={faListAlt}
-            style={{ fontSize: "26px", marginRight: "10px" }} />
-          <span style={{ fontSize: "18px", fontWeight: "500" }}>Danh sách vaccine</span>
-        </div>
-        <a className="btn btn-primary btnaddvaccine" href="add-vaccine">
-          <i className="fa fa-plus"></i> Thêm mới
-        </a>
+          <div className="table-container-title">
+            <FontAwesomeIcon
+              icon={faListAlt}
+              style={{ fontSize: "26px", marginRight: "10px" }} />
+            <span style={{ fontSize: "18px", fontWeight: "500" }}>Danh sách vaccine</span>
+          </div>
+          <a className="btn btn-primary btnaddvaccine" href="add-vaccine">
+            <i className="fa fa-plus"></i> Thêm mới
+          </a>
         </div>
         <Table columns={columns} dataSource={vaccines || []} pagination={false} loading={loading} />
         <div style={{ display: "flex", width: "100%", marginTop: 30, marginBottom: 30 }}>
