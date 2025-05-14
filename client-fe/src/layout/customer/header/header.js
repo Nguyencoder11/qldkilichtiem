@@ -50,25 +50,25 @@ function Header() {
                   <a href="tel:0967332130" className="itemheader itemtopheader hotlineheader">Hotline: 0243.765.5121</a>
                   {auth}
                 </div>
-                <form action='tim-kiem-vaccine' classNameName='d-flex'>
-                  <input name='search' classNameName='form-control' placeholder='Tìm kiếm vaccine' />
+                <form action='tim-kiem-vaccine' className='d-flex'>
+                  <input name='search' className='form-control' placeholder='Tìm kiếm vaccine' />
                 </form>
               </div>
             </div>
           </nav>
         </div>
-        <hr classNameName='hrheader-web' />
+        <hr className='hrheader-web' />
         <div className="container container-bottom-header">
           <nav className="navbar-expand-lg">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {danhMuc.map((item, index) => {
-                return <li className="nav-item dropdown">
+                return <li className="nav-item dropdown" key={index}>
                   <a className="nav-link dropdown-toggle itemheader itembottomheder" href="#" id={"navbarDropdown" + index} role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     {item.typeName}
                   </a>
                   <ul className="dropdown-menu" aria-labelledby={"navbarDropdown" + index}>
                     {item.vaccineTypes.map((child, indexChild) => {
-                      return <li><a className="dropdown-item" href={"vaccine-danhmuc?danhmuc=" + child.id}>{child.typeName}</a></li>
+                      return <li key={child.id}><a className="dropdown-item" href={"vaccine-danhmuc?danhmuc=" + child.id}>{child.typeName}</a></li>
                     })}
                   </ul>
                 </li>

@@ -74,7 +74,7 @@ const AdminDanhMuc = () => {
                         </thead>
                         <tbody>
                             {items.map(item => (
-                                <tr>
+                                <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>{item.typeName}</td>
                                     <td>{item.isPrimary == true ? <span className='green-text'><i className="fa fa-check-circle" aria-hidden="true"></i> Là danh mục chính</span> : ''}</td>

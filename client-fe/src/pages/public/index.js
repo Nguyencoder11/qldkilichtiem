@@ -98,7 +98,7 @@ function Home() {
                             </div>
                             <div className='row'>
                                 {item.vaccines.slice(0, visibleCounts[itemIndex] || 0).map((vaccine, vaccineIndex) => (
-                                    <div className='col-sm-3'>
+                                    <div className='col-sm-3' key={vaccineIndex}>
                                         <div className='singlemuitiem'>
                                             <a
                                                 key={vaccineIndex}

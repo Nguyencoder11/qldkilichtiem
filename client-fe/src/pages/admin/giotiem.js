@@ -202,7 +202,7 @@ const AdminGioTiemChung = ({ lichtiem }) => {
                     </div>
                     <div className="modal-body" id='noidungtimeschedule'>
                         {listNgay.map((item, index) => {
-                            return <div style={{ marginTop: '30px' }}>
+                            return <div style={{ marginTop: '30px' }} key={index}>
                                 <div className='d-flex' style={{ background: '#9e9e9e', paddingLeft: '10px' }}>
                                     <span>Ngày: <strong>{item}</strong></span>
                                 </div>
@@ -243,14 +243,14 @@ const AdminGioTiemChung = ({ lichtiem }) => {
                                     <tbody id={'tablegiotiem' + index}>
                                         {items.map((giotiem, index) => {
                                             if (giotiem.injectDate == item) {
-                                                return <tr>
+                                                return <tr key={index}>
                                                     <td>
                                                         <input id={'giobdupdate' + giotiem.id} type='time' defaultValue={giotiem.start} /> -
                                                         <input id={'gioktupdate' + giotiem.id} type='time' defaultValue={giotiem.end} />
                                                     </td>
                                                     <td><input id={'soluongupdate' + giotiem.id} defaultValue={giotiem.limitPeople} /></td>
-                                                    <td>
-                                                        <i onClick={() => deleteGioTiem(giotiem.id)} className="fa fa-trash iconaction"></i>
+                                                    <td style={{ fontSize: '1.1rem' }}>
+                                                        <i style={{ marginRight: '8px' }} onClick={() => deleteGioTiem(giotiem.id)} className="fa fa-trash iconaction"></i>
                                                         <i onClick={() => capNhatGio(giotiem.id)} className="fa fa-edit iconaction"></i>
                                                     </td>
                                                 </tr>

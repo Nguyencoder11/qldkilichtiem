@@ -124,6 +124,15 @@ const VaccineInventory = () => {
 
   const handleFileChange = async (e) => {
     const fileUpload = e.target.files[0];
+    const allowedTypes = [
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-excel",
+    ]
+
+    if(!allowedTypes.includes(fileUpload.type)) {
+      AppNotification.error("File không hợp lệ. Vui lòng chọn file Excel.");
+      return;
+    }
 
     if (!fileUpload) {
       AppNotification.error("Vui lòng chọn file");
@@ -155,7 +164,7 @@ const VaccineInventory = () => {
       const formattedData = vaccineInventorys.map((item, index) => ({
         STT: index + 1,
         "Tên Vaccine": item?.vaccine?.name,
-        "Số lượng Vaccine": item?.quantity,
+        "Số lượng tồn kho": item?.quantity,
         "Ngày tạo": item?.createdDate
           ? dayjs(item?.createdDate).format("HH:mm:ss DD-MM-YYYY")
           : null,
@@ -302,7 +311,6 @@ const VaccineInventory = () => {
         >Export</Button>
       </div>
       <Table
-        key={columns.keys}
         columns={columns}
         dataSource={vaccineInventorys || []}
         pagination={false}
@@ -350,6 +358,7 @@ const VaccineInventory = () => {
           <div>Số lượng vaccine xuất</div>
           <div>
             <InputNumber
+              value={quantity}
               onChange={(value) => setQuantity(value)}
               min={1}
               type="number"

@@ -254,7 +254,7 @@ function LichDaDangKy() {
                                 if (currentDate.getTime() >= targetDate.getTime()) {
                                     checked = true;
                                 }
-                                return <tr>
+                                return <tr key={index}>
                                     <td>{item.id}</td>
                                     <td>{item.vaccineScheduleTime.vaccineSchedule.vaccine.name}</td>
                                     <td>{item.vaccineScheduleTime.vaccineSchedule.center.centerName}</td>

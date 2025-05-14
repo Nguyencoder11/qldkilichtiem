@@ -108,7 +108,7 @@ const AdminLichTiemChung = () => {
                         </thead>
                         <tbody>
                             {items.map((item, index) => {
-                                return <tr>
+                                return <tr key={index}>
                                     <td>{item.id}</td>
                                     <td>{item.vaccine.name}</td>
                                     <td>{item.center.centerName}</td>

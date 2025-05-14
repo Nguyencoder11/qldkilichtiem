@@ -612,7 +612,7 @@ export const CustomerScheduleViewDetail = () => {
 
         <Modal
             title={"Đăng ký mới"}
-            visible={modalHandle}
+            open={modalHandle}
             onCancel={closeModal}
             okButtonProps={{ style: { display: "none" } }}
             cancelButtonProps={{ style: { display: "none" } }}
