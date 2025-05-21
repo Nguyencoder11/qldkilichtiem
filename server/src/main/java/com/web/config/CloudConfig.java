@@ -1,13 +1,14 @@
 package com.web.config;
 
 
-import com.cloudinary.Cloudinary;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.cloudinary.Cloudinary;
 
 @Configuration
 @SpringBootApplication
@@ -17,9 +18,9 @@ public class CloudConfig {
     public Cloudinary cloudinaryConfigs() {
         Cloudinary cloudinary = null;
         Map config = new HashMap();
-        config.put("cloud_name", "dxqh3xpza");
-        config.put("api_key", "159365789567286");
-        config.put("api_secret", "jVbDdyDleglBDRE2UIvjKebvWSM");
+        config.put("cloud_name", "dhe0ysmoy");
+        config.put("api_key", "875921558241419");
+        config.put("api_secret", "drsU20BRAs03UlD0JWRc5dHzwKcg");
         cloudinary = new Cloudinary(config);
         return cloudinary;
     }

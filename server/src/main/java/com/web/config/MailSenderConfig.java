@@ -1,16 +1,16 @@
 package com.web.config;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.Properties;
-
 @Configuration
 public class MailSenderConfig {
-    final static String username = "cphuoc281@gmail.com";
-    final static String password = "xzcqpwwvvahldilr";
+    final static String username = "lenhnguyen10a22003@gmail.com";
+    final static String password = "dnlerduygwlalmaj";  // Su dung mat khau ung dung de lam password cho tai khoan gmail thay vi dung mat khau thuc te
 
     @Bean
     public JavaMailSender getJavaMailSender() {

@@ -301,13 +301,13 @@ public class CustomerScheduleService {
 
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("cphuoc281@gmail.com", "xzcq pwwv vahl dilr"); // Thay đổi thông tin xác thực
+                return new PasswordAuthentication("lenhnguyen10a22003@gmail.com", "dnle rduy gwla lmaj"); // Thay đổi thông tin xác thực
             }
         });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("cphuoc281@gmail.com"));
+            message.setFrom(new InternetAddress("lenhnguyen10a22003@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(body);

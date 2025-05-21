@@ -1,22 +1,28 @@
 package com.web.vnpay;
 
 
-import org.springframework.stereotype.Component;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class VNPayConfig {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_TmnCode = "B77INC60";
-    public static String vnp_HashSecret = "NU3W61XPNAW4DDRSYM30E0G4GL97VG7M";
+    public static String vnp_TmnCode = "APPINCW6";
+    public static String vnp_HashSecret = "0LKRWORXLJF0T9NVEV4SOJJ8C7XR5TA6";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
     public static String md5(String message) {

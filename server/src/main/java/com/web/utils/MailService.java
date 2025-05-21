@@ -28,7 +28,7 @@ public class MailService {
     }
 
 
-    final static String username = "cphuoc281@gmail.com";
+    final static String username = "lenhnguyen10a22003@gmail.com";
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
@@ -71,7 +71,7 @@ public class MailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        message.setFrom("cphuoc281@gmail.com");
+        message.setFrom(username);
 
         mailSender.send(message);
     }
